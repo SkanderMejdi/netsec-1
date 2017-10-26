@@ -36,7 +36,7 @@ struct arpFull{
 } arp;
 
 void fill_header_request(char *srcip, char *dstip){
-  char broadcastAddr[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF}; // FF:FF:FF:FF:FF:FF
+  int broadcastAddr[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF}; // FF:FF:FF:FF:FF:FF
   struct in_addr src, dst; // Needed to convert the IP with inet_addr
 
   memcpy(arp.arp.tha, broadcastAddr, 6); // Set the target hardware address in the ARP
