@@ -21,6 +21,9 @@
 #include<sys/types.h>
 #include<unistd.h>
 
+int read_pcap(char *);
+int create_pcap(char *);
+
 int isAlphaNumberic(char c)
 {
 	if (c >= 32 && c <=128)
@@ -204,7 +207,19 @@ void capture_packet(){
     close(raw_socket);
 }
 
-int main()
+int main(int ac, char**av)
 {
-	capture_packet();
+    if (ac < 2){
+        printf("option: -l = listen, -r {file_name} = read pcap, -c {file_name}= create pcap\n");
+        exit(1);
+    }
+    if (!strcmp(av[1],"-l"))
+        capture_packet();
+    else if (!strcmp(av[1],"-r") && ac == 3)
+        read_pcap(av[2]);
+    else if (!strcmp(av[1],"-c") && ac == 3)
+        create_pcap(av[2]);
+    else
+        printf("option: -l = listen, -r {file_name} = read pcap, -c {file_name}= create pcap");
+    return 1;
 }
